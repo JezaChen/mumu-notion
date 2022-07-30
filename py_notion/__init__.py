@@ -1,10 +1,11 @@
 """ Py-notion, a simple, easy-to-use Notion client, is based on the official SDK modification. """
 
-from .client import Client
+from .client import Client, ClientOptions
 from .errors import *
 
 __all__ = [
     "Client",
+    "ClientOptions",
     "PyNotionAPIResponseException",
     "InvalidJsonError",
     "InvalidRequestUrlError",
