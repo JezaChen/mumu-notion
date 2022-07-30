@@ -287,15 +287,3 @@ class SearchEndpoint(Endpoint):
             "search",
             body=body_data
         )
-
-
-# TEST
-@organize_kwargs_as_a_dict_param("body_data")
-@validate_dict_parameter("body_data", ("s", "a", "b"), ("s", OneOf("a", "b")))
-def testfunc(i, body_data=None, j=2):
-    print(i, j)
-    print(body_data)
-
-
-if __name__ == '__main__':
-    testfunc(3, j=5, a=2, s=1)
