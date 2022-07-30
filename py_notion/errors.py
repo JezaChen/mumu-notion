@@ -1,16 +1,23 @@
-# -*- coding:utf-8 _*-
-""" 
-@author: Jeza Chen
-@license: GPL-3.0 License
-@file: errors.py 
-@time: 2022/07/23
-@contact: jeza@vip.qq.com
-@site:  
-@software: PyCharm 
-@description: 
-"""
 from typing import Optional
 
+__all__ = [
+    "PyNotionAPIResponseException",
+    "LocalValidationError",
+    "InvalidJsonError",
+    "InvalidRequestUrlError",
+    "InvalidRequestError",
+    "ValidationError",
+    "MissingVersionError",
+    "UnauthorizedError",
+    "RestrictedResourceError",
+    "ObjectNotFoundError",
+    "ConflictError",
+    "RateLimitedError",
+    "InternalServerError",
+    "ServiceUnavailableError",
+    "DatabaseConnectionUnavailableError",
+    "UnknownAPIResponseError",
+]
 _MAPPING_ERR_CODE_TO_API_RESPONSE_ERROR_CLASS = {}
 
 
@@ -28,6 +35,10 @@ class _PyNotionAPIResponseExceptionMeta(type):
 
 
 class PyNotionBaseException(Exception):
+    pass
+
+
+class LocalValidationError(Exception):
     pass
 
 

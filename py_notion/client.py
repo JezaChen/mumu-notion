@@ -1,14 +1,4 @@
-# -*- coding:utf-8 _*-
-""" 
-@author: Jeza Chen
-@license: GPL-3.0 License
-@file: client.py 
-@time: 2022/07/23
-@contact: jeza@vip.qq.com
-@site:  
-@software: PyCharm 
-@description: 
-"""
+""" The notion client definition """
 import functools
 import json
 from dataclasses import dataclass
@@ -17,7 +7,11 @@ from typing import Optional, Union
 
 import httpx
 
-from notion_client.errors import raise_api_response_exception_by_err_code, UnknownAPIResponseError
+from py_notion.api_endpoints import PagesEndpoint, BlocksEndpoint, DatabasesEndpoint, UsersEndpoint, \
+    CommentsEndpoint, SearchEndpoint
+from py_notion.errors import raise_api_response_exception_by_err_code, UnknownAPIResponseError
+
+__all__ = ["ClientOptions", "Client"]
 
 
 @dataclass(frozen=True)
@@ -27,6 +21,7 @@ class ClientOptions:
     # `notion_version` specifies the API version
     notion_version: str = "2022-06-28"
     base_url = "https://api.notion.com/v1"
+    timeout_ms: int = 60_000
 
 
 class Client:
@@ -48,8 +43,16 @@ class Client:
             headers={
                 "Authorization": f"Bearer {self.__options.auth_token}",
                 "Notion-Version": self.__options.notion_version
-            }
+            },
+            timeout=httpx.Timeout(self.__options.timeout_ms / 1_000)
         )
+
+        self.pages = PagesEndpoint(self)
+        self.blocks = BlocksEndpoint(self)
+        self.databases = DatabasesEndpoint(self)
+        self.users = UsersEndpoint(self)
+        self.comments = CommentsEndpoint(self)
+        self.search = SearchEndpoint(self)
 
     def _make_request(self, method: str, path: str, query: str, body: str):
         return self.__http_client.build_request(method, path, params=query, json=body)
@@ -66,7 +69,6 @@ class Client:
                 err_code = None
                 err_detail = ""
 
-            # must raise
             if err_code is not None:
                 raise_api_response_exception_by_err_code(
                     err_code,
@@ -92,5 +94,3 @@ class Client:
     post = functools.partialmethod(request, "post")
     patch = functools.partialmethod(request, "patch")
     delete = functools.partialmethod(request, "delete")
-
-
