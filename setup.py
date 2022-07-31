@@ -9,7 +9,7 @@ def get_description():
 setup(
     name="mumu-notion",
     version="0.0.1",
-    url="https://github.com/JezaChen/py-notion",
+    url="https://github.com/JezaChen/mumu-notion",
     author="Jeza Chen",
     author_email="jezachen@163.com",
     description="Mumu-notion, a simple, easy-to-use Notion client, is based on the official SDK modification",
