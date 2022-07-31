@@ -37,3 +37,6 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+      env:
+        NOTION_AUTH_TOKEN: ${{ secrets.NOTION_AUTH_TOKEN }}
+        NOTION_BASE_PAGE_ID: ${{ secrets.NOTION_BASE_PAGE_ID }}
