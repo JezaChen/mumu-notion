@@ -65,7 +65,7 @@ class Client:
                 body = err.response.json()
                 err_code = body.get("code")
                 err_detail = body.get("message", "")
-            except json.JSONDecoder:
+            except json.JSONDecodeError:
                 err_code = None
                 err_detail = ""
 
