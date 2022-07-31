@@ -4,89 +4,103 @@ from examples.official_guides.common_prelude import get_client_and_base_page_id
 from examples.official_guides.data import BlockExampleData
 from examples.utils import colored_print, PrintStyle, generate_step_printer, press_enter_to_continue
 
-print_step = generate_step_printer()
+__all__ = [
+    "run_example_code",
+]
 
-client, base_page_id = get_client_and_base_page_id()
 
-###################################################
-# Append two blocks as children of the page given #
-###################################################
+def run_example_code(is_continuous=False):
+    print_step = generate_step_printer()
 
-print_step("Append two blocks as children of the page given")
+    client, base_page_id = get_client_and_base_page_id()
 
-block_append_rsp = client.blocks.children.append(base_page_id, BlockExampleData.CHILD_BLOCK_APPEND_DATA_EXAMPLE)
-print(f"--- Block Children Append Result ---\n"
-      f"{block_append_rsp}\n"
-      f"--- Block Children Append Result ---")
+    ###################################################
+    # Append two blocks as children of the page given #
+    ###################################################
 
-appended_heading2_block_info = block_append_rsp["results"][0]
-appended_paragraph_block_info = block_append_rsp["results"][1]
+    print_step("Append two blocks as children of the page given")
 
-appended_heading2_block_id = appended_heading2_block_info["id"]
-appended_paragraph_block_id = appended_paragraph_block_info["id"]
+    block_append_rsp = client.blocks.children.append(base_page_id, BlockExampleData.CHILD_BLOCK_APPEND_DATA_EXAMPLE)
+    print(f"--- Block Children Append Result ---\n"
+          f"{block_append_rsp}\n"
+          f"--- Block Children Append Result ---")
 
-colored_print(f"The blocks are appended successfully. "
-              f"You can now view the intuitive result by clicking on the following links: "
-              f"https://www.notion.so/{base_page_id.replace('-', '')}",
-              color=PrintStyle.GREEN)
+    appended_heading2_block_info = block_append_rsp["results"][0]
+    appended_paragraph_block_info = block_append_rsp["results"][1]
 
-press_enter_to_continue()
-#############################################
-# List all block children of the page given #
-#############################################
-print_step("List all block children of the page given")
+    appended_heading2_block_id = appended_heading2_block_info["id"]
+    appended_paragraph_block_id = appended_paragraph_block_info["id"]
 
-list_rsp = client.blocks.children.list(base_page_id)
-print(f"--- Children List Result ---\n"
-      f"{list_rsp}\n"
-      f"--- Children List Result ---")
+    colored_print(f"The blocks are appended successfully. "
+                  f"You can now view the intuitive result by clicking on the following links: "
+                  f"https://www.notion.so/{base_page_id.replace('-', '')}",
+                  color=PrintStyle.GREEN)
 
-press_enter_to_continue()
-####################################################
-# Retrieve the information of the heading_2 block  #
-####################################################
+    if not is_continuous:
+        press_enter_to_continue()
+    #############################################
+    # List all block children of the page given #
+    #############################################
+    print_step("List all block children of the page given")
 
-print_step("Retrieve the information of the heading_2 block")
-retrieve_rsp = client.blocks.retrieve(appended_heading2_block_id)
+    list_rsp = client.blocks.children.list(base_page_id)
+    print(f"--- Children List Result ---\n"
+          f"{list_rsp}\n"
+          f"--- Children List Result ---")
 
-print(f"--- Block Retrieve Result ---\n"
-      f"{block_append_rsp}\n"
-      f"--- Block Retrieve Result ---")
+    if not is_continuous:
+        press_enter_to_continue()
+    ####################################################
+    # Retrieve the information of the heading_2 block  #
+    ####################################################
 
-press_enter_to_continue()
-##############################################
-# Update the content of the heading_2 block  #
-##############################################
+    print_step("Retrieve the information of the heading_2 block")
+    retrieve_rsp = client.blocks.retrieve(appended_heading2_block_id)
 
-print("Update the content of the heading_2 block")
-update_rsp = client.blocks.update(appended_heading2_block_id,
-                                  BlockExampleData.HEADING2_BLOCK_UPDATE_DATA_EXAMPLE)
+    print(f"--- Block Retrieve Result ---\n"
+          f"{block_append_rsp}\n"
+          f"--- Block Retrieve Result ---")
 
-print(f"--- Block Update Result ---\n"
-      f"{update_rsp}\n"
-      f"--- Block Update Result ---")
+    if not is_continuous:
+        press_enter_to_continue()
+    ##############################################
+    # Update the content of the heading_2 block  #
+    ##############################################
 
-colored_print(f"The block is updated successfully. "
-              f"You can now view the intuitive result by clicking on the following links: "
-              f"https://www.notion.so/{base_page_id.replace('-', '')}",
-              color=PrintStyle.GREEN)
+    print("Update the content of the heading_2 block")
+    update_rsp = client.blocks.update(appended_heading2_block_id,
+                                      BlockExampleData.HEADING2_BLOCK_UPDATE_DATA_EXAMPLE)
 
-press_enter_to_continue()
-############################
-# Delete the blocks above  #
-############################
-print_step("Delete the blocks above")
-delete_rsp = client.blocks.delete(appended_paragraph_block_id)
-print(f"--- Paragraph Block Delete Result ---\n"
-      f"{delete_rsp}\n"
-      f"--- Paragraph Block Delete Result ---")
+    print(f"--- Block Update Result ---\n"
+          f"{update_rsp}\n"
+          f"--- Block Update Result ---")
 
-delete_rsp = client.blocks.delete(appended_heading2_block_id)
-print(f"--- Heading_2 Block Delete Result ---\n"
-      f"{delete_rsp}\n"
-      f"--- Heading_2 Block Delete Result ---")
+    colored_print(f"The block is updated successfully. "
+                  f"You can now view the intuitive result by clicking on the following links: "
+                  f"https://www.notion.so/{base_page_id.replace('-', '')}",
+                  color=PrintStyle.GREEN)
 
-colored_print(f"The blocks are deleted successfully. "
-              f"You can now view the intuitive result by clicking on the following links: "
-              f"https://www.notion.so/{base_page_id.replace('-', '')}",
-              color=PrintStyle.GREEN)
+    if not is_continuous:
+        press_enter_to_continue()
+    ############################
+    # Delete the blocks above  #
+    ############################
+    print_step("Delete the blocks above")
+    delete_rsp = client.blocks.delete(appended_paragraph_block_id)
+    print(f"--- Paragraph Block Delete Result ---\n"
+          f"{delete_rsp}\n"
+          f"--- Paragraph Block Delete Result ---")
+
+    delete_rsp = client.blocks.delete(appended_heading2_block_id)
+    print(f"--- Heading_2 Block Delete Result ---\n"
+          f"{delete_rsp}\n"
+          f"--- Heading_2 Block Delete Result ---")
+
+    colored_print(f"The blocks are deleted successfully. "
+                  f"You can now view the intuitive result by clicking on the following links: "
+                  f"https://www.notion.so/{base_page_id.replace('-', '')}",
+                  color=PrintStyle.GREEN)
+
+
+if __name__ == '__main__':
+    run_example_code()

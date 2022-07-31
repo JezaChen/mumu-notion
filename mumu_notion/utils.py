@@ -5,9 +5,11 @@ __all__ = ["organize_kwargs_as_a_dict_param"]
 
 
 def organize_kwargs_as_a_dict_param(argument_name):
-    """ 装饰器
-    如果实参argument_name为None，则将调用func的、不在func参数列表上的实参组织为dict, 作为argument_name指定参数, 传递到被装饰的函数上
-    如果实参argument_name不为None, 则优先使用该实参即可
+    """ A Decorator
+    If the `argument_name` is None, the parameters that are not in the argument list of the func call is
+    organized as a dict and passed to the decorated function as the `argument_name` parameter.
+
+    If the real parameter `argument_name` is not None, the real parameter is used first.
     """
 
     def decorator(func):
@@ -33,7 +35,7 @@ def organize_kwargs_as_a_dict_param(argument_name):
 
             dict_param_value = bound_sig.arguments[argument_name]
 
-            if dict_param_value is None:  # 用户没有指定argument_name指定的参数
+            if dict_param_value is None:  # The user does not specify the parameter specified by argument_name
                 dict_param_value = kwargs_to_form_dict
                 bound_sig.arguments[argument_name] = dict_param_value
 

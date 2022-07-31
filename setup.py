@@ -8,14 +8,14 @@ def get_description():
 
 setup(
     name="mumu-notion",
-    version="0.0.1",
+    version="0.0.1a",
     url="https://github.com/JezaChen/mumu-notion",
     author="Jeza Chen",
     author_email="jezachen@163.com",
     description="Mumu-notion, a simple, easy-to-use Notion client, is based on the official SDK modification",
     long_description=get_description(),
     long_description_content_type="text/markdown",
-    packages=find_packages(),
+    packages=find_packages(exclude=("*examples", "*examples.*")),
     python_requires=">=3.7, <4",
     install_requires=[
         "httpx >= 0.15.0",
