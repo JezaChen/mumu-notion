@@ -1,7 +1,7 @@
 """ Common prelude to all examples, used to get the Client and the base page id """
 
 from examples.utils import colored_print, PrintStyle
-from py_notion import Client
+from mumu_notion import Client
 
 __all__ = [
     "get_client",
