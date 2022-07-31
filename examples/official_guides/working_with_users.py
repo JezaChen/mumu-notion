@@ -3,43 +3,55 @@
 from examples.official_guides.common_prelude import get_client
 from examples.utils import generate_step_printer, press_enter_to_continue
 
-print_step = generate_step_printer()
+__all__ = [
+    "run_example_code",
+]
 
-client = get_client()
 
-###########################
-# Retrieve my information #
-###########################
+def run_example_code(is_continuous=False):
+    print_step = generate_step_printer()
 
-print_step("Retrieve my information")
+    client = get_client()
 
-my_info_rsp = client.users.me()
-print(f"--- My Information Result ---\n"
-      f"{my_info_rsp}\n"
-      f"--- My Information Result ---")
+    ###########################
+    # Retrieve my information #
+    ###########################
 
-my_uid = my_info_rsp["id"]
+    print_step("Retrieve my information")
 
-press_enter_to_continue()
-####################################
-# Retrieve the information of user #
-####################################
+    my_info_rsp = client.users.me()
+    print(f"--- My Information Result ---\n"
+          f"{my_info_rsp}\n"
+          f"--- My Information Result ---")
 
-print_step(f"Retrieve the information of user {my_uid}")
-user_retrieve_rsp = client.users.retrieve(my_uid)
+    my_uid = my_info_rsp["id"]
 
-print(f"--- User Retrieve Result ---\n"
-      f"{user_retrieve_rsp}\n"
-      f"--- User Retrieve Result ---")
+    if not is_continuous:
+        press_enter_to_continue()
+    ####################################
+    # Retrieve the information of user #
+    ####################################
 
-press_enter_to_continue()
-##################
-# List all users #
-##################
+    print_step(f"Retrieve the information of user {my_uid}")
+    user_retrieve_rsp = client.users.retrieve(my_uid)
 
-print_step(f"List all users")
-list_result = client.users.list()
+    print(f"--- User Retrieve Result ---\n"
+          f"{user_retrieve_rsp}\n"
+          f"--- User Retrieve Result ---")
 
-print(f"--- User List Result ---\n"
-      f"{list_result}\n"
-      f"--- User List Result ---")
+    if not is_continuous:
+        press_enter_to_continue()
+    ##################
+    # List all users #
+    ##################
+
+    print_step(f"List all users")
+    list_result = client.users.list()
+
+    print(f"--- User List Result ---\n"
+          f"{list_result}\n"
+          f"--- User List Result ---")
+
+
+if __name__ == '__main__':
+    run_example_code()
