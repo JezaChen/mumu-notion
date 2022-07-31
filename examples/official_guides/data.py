@@ -81,7 +81,7 @@ class BlockExampleData:
             "rich_text": [
                 {
                     "text": {
-                        "content": "Lacinato kale (Updated by py-notion!)"
+                        "content": "Lacinato kale (Updated by mumu-notion!)"
                     },
                     "annotations": {
                         "color": "green"
@@ -250,7 +250,7 @@ class DatabaseExampleData:
         "description": [
             {
                 "text": {
-                    "content": "Grocery list for just kale 🥬 (updated by py-notion!)"
+                    "content": "Grocery list for just kale 🥬 (updated by mumu-notion!)"
                 }
             }
         ],

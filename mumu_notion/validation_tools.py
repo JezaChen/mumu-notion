@@ -7,7 +7,7 @@ import inspect
 import typing
 from abc import ABCMeta, abstractmethod
 
-from py_notion.errors import LocalValidationError
+from mumu_notion.errors import LocalValidationError
 
 __all__ = ["DictSubValidator", "OneOf", "validate_dict_parameter"]
 

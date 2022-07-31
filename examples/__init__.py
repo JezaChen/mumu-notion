@@ -1,1 +1,1 @@
-""" Examples for using the py-notion Client """
+""" Examples for using the mumu-notion Client """
