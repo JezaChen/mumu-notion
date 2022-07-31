@@ -48,3 +48,5 @@ jobs:
       env:
         NOTION_AUTH_TOKEN: ${{ secrets.NOTION_AUTH_TOKEN }}
         NOTION_BASE_PAGE_ID: ${{ secrets[matrix.python-version.target_base_page_id_secret] }}
+    - name: Upload coverage reports to Codecov with GitHub Action
+      uses: codecov/codecov-action@v3
