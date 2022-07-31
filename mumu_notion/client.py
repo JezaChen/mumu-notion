@@ -21,7 +21,7 @@ class ClientOptions:
     # `notion_version` specifies the API version
     notion_version: str = "2022-06-28"
     base_url = "https://api.notion.com/v1"
-    timeout_ms: int = 60_000
+    timeout_ms: int = 90_000
 
 
 class Client:
