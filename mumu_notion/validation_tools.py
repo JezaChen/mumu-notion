@@ -80,13 +80,15 @@ def validate_dict_parameter(dict_param_name: str,
                     except LocalValidationError:
                         raise
                 else:
-                    raise LocalValidationError(f"Unexpected type of {required_cond}")
+                    raise TypeError(f"Unexpected type of {required_cond}")
 
             # Check if the parameter dict has a key that is not contained on the key_scope.
             for key in target_dict_value:
                 if key not in key_scope:
-                    raise ValueError(f"The key `{key}` contained in the parameter `{dict_param_name}` is invalid. "
-                                     f"Please remove it.")
+                    raise LocalValidationError(
+                        f"The key `{key}` contained in the parameter `{dict_param_name}` is invalid. "
+                        f"Please remove it."
+                    )
 
             return func(*bound_args.args, **bound_args.kwargs)
 

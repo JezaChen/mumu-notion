@@ -1,11 +1,7 @@
 import os
 import unittest.mock
-from unittest import mock
 
-import pytest
-
-NOTION_AUTH_TOKEN_KEY = "NOTION_AUTH_TOKEN"
-NOTION_BASE_PAGE_ID_KEY = "NOTION_BASE_PAGE_ID"
+from tests.constants import NOTION_AUTH_TOKEN_KEY, NOTION_BASE_PAGE_ID_KEY
 
 
 def _test_endpoint_example_code(endpoint_example_code, is_continuous):
