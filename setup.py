@@ -8,7 +8,7 @@ def get_description():
 
 setup(
     name="mumu-notion",
-    version="0.0.1a",
+    version="0.0.2",
     url="https://github.com/JezaChen/mumu-notion",
     author="Jeza Chen",
     author_email="jezachen@163.com",
