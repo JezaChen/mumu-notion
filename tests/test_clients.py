@@ -70,6 +70,8 @@ NOTION_API_RESPONSE_ERRORS = {
     (500, "internal_server_error", InternalServerError),
     (503, "service_unavailable", ServiceUnavailableError),
     (503, "database_connection_unavailable", DatabaseConnectionUnavailableError),
+    # Test Unknown API Response Error
+    (400, "unknown_error", UnknownAPIResponseError)
 }
 
 

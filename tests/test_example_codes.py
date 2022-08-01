@@ -11,6 +11,9 @@ def _test_endpoint_example_code(endpoint_example_code, is_continuous):
 
 
 def test_example_codes_continuously():
+    """ The test will not be interrupted by the input,
+    the token and base page id will be filled automatically using environment variables.
+    """
     assert os.getenv(NOTION_AUTH_TOKEN_KEY) is not None
     assert os.getenv(NOTION_BASE_PAGE_ID_KEY) is not None
 
@@ -19,12 +22,14 @@ def test_example_codes_continuously():
     from examples.official_guides.working_with_users import run_example_code as users_endpoint_example
     from examples.official_guides.working_with_comments import run_example_code as comments_endpoint_example
     from examples.official_guides.working_with_databases import run_example_code as databases_endpoint_example
+    from examples.official_guides.working_with_search import run_example_code as search_endpoint_example
 
     for example_code in (blocks_endpoint_example,
                          pages_endpoint_example,
                          users_endpoint_example,
                          comments_endpoint_example,
                          databases_endpoint_example,
+                         search_endpoint_example,
                          ):
         _test_endpoint_example_code(example_code,
                                     is_continuous=True)
@@ -45,6 +50,9 @@ def example_code_input_generator(auth_token: str,
 
 
 def test_example_codes_discontinuously(monkeypatch):
+    """ The test is interrupted by the input,
+    and the test will automatically enter the corresponding string to make the test continue.
+    """
     assert os.getenv(NOTION_AUTH_TOKEN_KEY) is not None
     assert os.getenv(NOTION_BASE_PAGE_ID_KEY) is not None
 
@@ -69,13 +77,16 @@ def test_example_codes_discontinuously(monkeypatch):
             from examples.official_guides.working_with_users import run_example_code as users_endpoint_example
             from examples.official_guides.working_with_comments import run_example_code as comments_endpoint_example
             from examples.official_guides.working_with_databases import run_example_code as databases_endpoint_example
+            from examples.official_guides.working_with_search import run_example_code as search_endpoint_example
 
             for example_code in (blocks_endpoint_example,
                                  pages_endpoint_example,
                                  users_endpoint_example,
                                  comments_endpoint_example,
                                  databases_endpoint_example,
+                                 search_endpoint_example,
                                  ):
+                # mock the input
                 m.side_effect = example_code_input_generator(auth_token,
                                                              base_page_id)
                 _test_endpoint_example_code(example_code,
