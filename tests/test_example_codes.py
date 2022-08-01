@@ -85,3 +85,7 @@ def test_example_codes_discontinuously(monkeypatch):
     # restore the environment variables
     os.putenv(NOTION_AUTH_TOKEN_KEY, auth_token)
     os.putenv(NOTION_BASE_PAGE_ID_KEY, base_page_id)
+
+    if os.getenv(NOTION_AUTH_TOKEN_KEY) is None or os.getenv(NOTION_BASE_PAGE_ID_KEY) is None:
+        os.environ[NOTION_AUTH_TOKEN_KEY] = auth_token
+        os.environ[NOTION_BASE_PAGE_ID_KEY] = base_page_id
