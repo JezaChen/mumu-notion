@@ -21,7 +21,7 @@ def organize_kwargs_as_a_dict_param(argument_name):
             if name == argument_name and param.default is param.empty:
                 raise TypeError(f"The parameter `{argument_name}` need to have a default value.")
             if param.kind == param.VAR_KEYWORD:
-                raise TypeError("The decorated function cannot have the **kwargs parameter.")
+                raise TypeError(f"The decorated function cannot have the **{name} parameter.")
 
         @functools.wraps(func)
         def wrapper(*args, **kwargs):

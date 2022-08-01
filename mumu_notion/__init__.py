@@ -21,4 +21,5 @@ __all__ = [
     "ServiceUnavailableError",
     "DatabaseConnectionUnavailableError",
     "UnknownAPIResponseError",
+    "LocalValidationError",
 ]

@@ -34,6 +34,19 @@ def run_example_code(is_continuous=False):
 
     if not is_continuous:
         press_enter_to_continue()
+
+    #####################
+    # Retrieve the page #
+    #####################
+    print_step("Retrieve the information of the page")
+    page_retrieve_rsp = client.pages.retrieve(page_id)
+
+    print(f"--- Page Retrieve Result ---\n"
+          f"{page_retrieve_rsp}\n"
+          f"--- Page Retrieve Result ---")
+
+    if not is_continuous:
+        press_enter_to_continue()
     ###################
     # Update the page #
     ###################

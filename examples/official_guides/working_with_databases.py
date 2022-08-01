@@ -229,6 +229,21 @@ def run_example_code(is_continuous=False):
                   f"https://www.notion.so/{base_page_id}",
                   color=PrintStyle.GREEN)
 
+    # if not is_continuous:
+    #     press_enter_to_continue()
+    #
+    # ###################################
+    # # List the databases (deprecated) #
+    # ###################################
+    # print_step("List the databases (deprecated)")
+    # old_version_client = Client(
+    #     {
+    #         "auth_token": client.options.auth_token,
+    #         "notion_version": "2021-08-16"
+    #     }
+    # )
+    # client.databases.list()
+
 
 if __name__ == '__main__':
     run_example_code()
