@@ -6,6 +6,8 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mumu-notion?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/jezachen/mumu-notion)
 
+[中文文档](https://github.com/JezaChen/mumu-notion/blob/master/README_zh.md)
+
 </div>
 
 `Mumu-Notion`, a simple and easy-to-use Notion client, is based on the official SDK modification.
