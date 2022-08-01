@@ -169,12 +169,17 @@ def test_validation_decorator():
     """
     with pytest.raises(TypeError, match="The decorated function must have the `.*` parameter."):
         @validate_dict_parameter("not_existing_param", ("a", "b"))
-        def func(param_dict: dict):
-            pass
+        def func(param_dict: dict): ...
 
     with pytest.raises(TypeError, match="Unexpected type of .*"):
         @validate_dict_parameter("param_dict", ("a", "b"), (1,))
-        def func(param_dict: dict):
-            pass
+        def func(param_dict: dict): ...
 
         func({})
+
+    with pytest.raises(LocalValidationError,
+                       match="The parameter `.*` must be a dict."):
+        @validate_dict_parameter("param_dict", ("a", "b"))
+        def func(param_dict: dict): ...
+
+        func(2)

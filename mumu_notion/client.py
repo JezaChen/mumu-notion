@@ -36,15 +36,15 @@ class Client:
             options = ClientOptions(**kwargs)
         elif isinstance(options, dict):
             options = ClientOptions(**options)
-        self.__options = options
+        self.options = options
 
         self.__http_client = httpx.Client(
-            base_url=self.__options.base_url,
+            base_url=self.options.base_url,
             headers={
-                "Authorization": f"Bearer {self.__options.auth_token}",
-                "Notion-Version": self.__options.notion_version
+                "Authorization": f"Bearer {self.options.auth_token}",
+                "Notion-Version": self.options.notion_version
             },
-            timeout=httpx.Timeout(self.__options.timeout_ms / 1_000)
+            timeout=httpx.Timeout(self.options.timeout_ms / 1_000)
         )
 
         self.pages = PagesEndpoint(self)
@@ -67,7 +67,7 @@ class Client:
                 err_detail = body.get("message", "")
             except json.JSONDecodeError:
                 err_code = None
-                err_detail = ""
+                err_detail = "The error object is not a valid json object."
 
             if err_code is not None:
                 raise_api_response_exception_by_err_code(
