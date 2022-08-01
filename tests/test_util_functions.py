@@ -2,6 +2,7 @@ import typing
 
 import pytest
 
+from mumu_notion import PyNotionAPIResponseException
 from mumu_notion.utils import organize_kwargs_as_a_dict_param
 
 
@@ -25,3 +26,20 @@ def test_organize_kwargs_as_a_dict_param_decorator():
                        match=r"The decorated function cannot have the \*\*.* parameter."):
         @organize_kwargs_as_a_dict_param("param_dict")
         def func(param_dict: typing.Optional[dict] = None, **sss): ...
+
+
+def test_PyNotionAPIResponseExceptionMeta():
+    """ Test if the metaclass raises the exception if the err_code field does not exist or is empty.
+    """
+    with pytest.raises(NotImplementedError,
+                       match="Defining class .* requires err_code field."):
+        class ExampleException(PyNotionAPIResponseException):
+            # lack err_code
+            err_message = ""
+
+    with pytest.raises(NotImplementedError,
+                       match="Defining class .* requires err_code field."):
+        class ExampleException2(PyNotionAPIResponseException):
+            err_code = ""  # err_code is empty
+            err_message = ""
+

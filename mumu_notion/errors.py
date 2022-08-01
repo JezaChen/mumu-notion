@@ -171,7 +171,7 @@ class UnknownAPIResponseError(PyNotionAPIResponseException):
 
 
 def raise_api_response_exception_by_err_code(err_code: str, err_detail: str):
-    exp_cls = _MAPPING_ERR_CODE_TO_API_RESPONSE_ERROR_CLASS[err_code]
+    exp_cls = _MAPPING_ERR_CODE_TO_API_RESPONSE_ERROR_CLASS.get(err_code)
     if exp_cls is None:
         raise UnknownAPIResponseError(err_detail)
     raise exp_cls(err_detail)
