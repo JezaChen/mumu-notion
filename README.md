@@ -1,6 +1,6 @@
-<div style="text-align: center">
+<h1 align="center">MuMu-Notion</h1>
 
-<h1>MuMu-Notion</h1>
+<div align="center">
 
 [![codecov](https://codecov.io/gh/JezaChen/mumu-notion/branch/master/graph/badge.svg?token=QKE5Z5JS04)](https://codecov.io/gh/JezaChen/mumu-notion)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mumu-notion?style=flat-square)
