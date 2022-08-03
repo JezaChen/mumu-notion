@@ -1,3 +1,4 @@
+import typing
 from typing import Optional
 
 __all__ = [
@@ -56,7 +57,7 @@ class PyNotionAPIResponseException(PyNotionBaseException,
     def __init__(self, err_detail: Optional[str] = None):
         self.err_detail = err_detail
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.err_message}\nMore details returned by the Notion API:\n{self.err_detail}"
 
 
@@ -170,7 +171,7 @@ class UnknownAPIResponseError(PyNotionAPIResponseException):
     __is_excluded__ = True
 
 
-def raise_api_response_exception_by_err_code(err_code: str, err_detail: str):
+def raise_api_response_exception_by_err_code(err_code: str, err_detail: str) -> typing.NoReturn:
     exp_cls = _MAPPING_ERR_CODE_TO_API_RESPONSE_ERROR_CLASS.get(err_code)
     if exp_cls is None:
         raise UnknownAPIResponseError(err_detail)

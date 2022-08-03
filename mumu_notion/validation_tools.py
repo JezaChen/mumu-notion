@@ -17,7 +17,7 @@ class DictSubValidator(metaclass=ABCMeta):
     """
 
     @abstractmethod
-    def validate(self, parameter_names: typing.Iterable[str]): ...
+    def validate(self, dict_data: typing.Dict) -> None: ...
 
 
 class OneOf(DictSubValidator):
@@ -25,10 +25,10 @@ class OneOf(DictSubValidator):
         Not containing any key, or containing more than one key in the list, is not allowed.
     """
 
-    def __init__(self, *keys):
+    def __init__(self, *keys: str):
         self._key_set = set(keys)
 
-    def validate(self, dict_data: dict):
+    def validate(self, dict_data: dict) -> None:
         match_count = 0
         for key in dict_data:
             if key in self._key_set:
@@ -43,8 +43,8 @@ class OneOf(DictSubValidator):
 def validate_dict_parameter(dict_param_name: str,
                             key_scope: typing.Iterable[str],
                             required_keys: typing.Optional[
-                                typing.Union[typing.Iterable[str], DictSubValidator]
-                            ] = None):
+                                typing.Iterable[typing.Union[str, DictSubValidator]]
+                            ] = None) -> typing.Callable:
     """ A decorator that simply checks if the dict parameter is legal, currently only the outermost key can be checked.
         There are two kinds of checks for keys:
         - Check if the required key is included on the parameter dict,
@@ -54,13 +54,13 @@ def validate_dict_parameter(dict_param_name: str,
     if required_keys is None:
         required_keys = {}  # empty dict, meaning that none keys is required.
 
-    def decorator(func: typing.Callable):
+    def decorator(func: typing.Callable) -> typing.Callable:
         sig = inspect.signature(func)
         if dict_param_name not in sig.parameters:
             raise TypeError(f"The decorated function must have the `{dict_param_name}` parameter.")
 
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: typing.Any, **kwargs: typing.Any) -> typing.Any:
             bound_args = sig.bind(*args, **kwargs)
             target_dict_value = bound_args.arguments[dict_param_name]
             if target_dict_value is not None and not isinstance(target_dict_value, dict):

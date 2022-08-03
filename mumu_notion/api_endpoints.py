@@ -7,6 +7,18 @@ from mumu_notion.validation_tools import OneOf, validate_dict_parameter
 if typing.TYPE_CHECKING:
     from mumu_notion.client import Client
 
+__all__ = [
+    "Endpoint",
+    "PagePropertiesEndpoint",
+    "PagesEndpoint",
+    "BlockChildrenEndpoint",
+    "BlocksEndpoint",
+    "DatabasesEndpoint",
+    "UsersEndpoint",
+    "CommentsEndpoint",
+    "SearchEndpoint",
+]
+
 
 class Endpoint:
     def __init__(self, client: "Client"):
@@ -273,6 +285,13 @@ class CommentsEndpoint(Endpoint):
     @validate_dict_parameter("body_data", ("parent", "discussion_id", "rich_text"),
                              ("rich_text", OneOf("discussion_id", "parent")))
     def create(self, body_data: typing.Optional[typing.Dict] = None) -> dict:
+        """
+        Creates a comment in a page or existing discussion thread.
+        There are two locations you can add a new comment to:
+        - A page
+        - An existing discussion thread
+        See also: https://developers.notion.com/reference/create-a-comment
+        """
         return self._client.post(
             "comments",
             body=body_data
@@ -283,6 +302,10 @@ class SearchEndpoint(Endpoint):
     @organize_kwargs_as_a_dict_param("body_data")
     @validate_dict_parameter("body_data", ("query", "sort", "filter", "start_cursor", "page_size"))
     def __call__(self, body_data: typing.Optional[typing.Dict] = None) -> dict:
+        """ Searches all original pages, databases, and child pages/databases that are shared with the integration.
+        It will not return linked databases, since these duplicate their source databases.
+        See also: https://developers.notion.com/reference/post-search
+        """
         return self._client.post(
             "search",
             body=body_data
