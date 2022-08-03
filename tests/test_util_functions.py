@@ -2,8 +2,8 @@ import typing
 
 import pytest
 
-from mumu_notion import PyNotionAPIResponseException
-from mumu_notion.utils import organize_kwargs_as_a_dict_param
+from notionx import PyNotionAPIResponseException
+from notionx.utils import organize_kwargs_as_a_dict_param
 
 
 def test_organize_kwargs_as_a_dict_param_decorator():

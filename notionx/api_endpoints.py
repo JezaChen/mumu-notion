@@ -1,11 +1,11 @@
 """ Endpoints definitions """
 import typing
 
-from mumu_notion.utils import organize_kwargs_as_a_dict_param
-from mumu_notion.validation_tools import OneOf, validate_dict_parameter
+from notionx.utils import organize_kwargs_as_a_dict_param
+from notionx.validation_tools import OneOf, validate_dict_parameter
 
 if typing.TYPE_CHECKING:
-    from mumu_notion.client import Client
+    from notionx.client import Client
 
 __all__ = [
     "Endpoint",

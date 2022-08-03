@@ -6,7 +6,7 @@ from typing import Optional, Union
 
 import httpx
 
-from mumu_notion.api_endpoints import PagesEndpoint, BlocksEndpoint, DatabasesEndpoint, UsersEndpoint, \
+from notionx.api_endpoints import PagesEndpoint, BlocksEndpoint, DatabasesEndpoint, UsersEndpoint, \
     CommentsEndpoint, SearchEndpoint
 
 __all__ = ["ClientOptions", "Client"]

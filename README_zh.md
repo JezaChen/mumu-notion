@@ -29,12 +29,12 @@
 使用`pip`安装即可：
 
 ```shell
-pip install mumu-notion
+pip install notionx
 ```
 
 ## 用法
 
-使用mumu-notion前，需要创建 Integration Token, 并分享至少一个页面给该Integration。
+使用NotionX前，需要创建 Integration Token, 并分享至少一个页面给该Integration。
 
 - 创建方式：https://www.notion.so/my-integrations/
 - Notion关于创建和分享页面至Integration的官方教程：https://developers.notion.com/docs/getting-started
@@ -44,7 +44,7 @@ pip install mumu-notion
 通过传入包含`auth_token`（上述Integration的Token，以`secret_`开头）的字典（**字典参数风格**），以实现Notion Client的初始化：
 
 ```Python
-from mumu_notion import Client
+from notionx import Client
 
 client = Client({
     "auth_token": "your_integration_token"
@@ -54,7 +54,7 @@ client = Client({
 还有另一个初始化的方式，以**关键字参数风格**传入：
 
 ```Python
-from mumu_notion import Client
+from notionx import Client
 
 client = Client(
     auth_token="your_integration_token"
@@ -68,7 +68,7 @@ client = Client(
 > 为了避免Integration Token的泄漏，我们不建议将token明文硬编码在代码里。最好将其写入环境变量中，再通过以下方式初始化：
 > ```Python
 > import os
-> from mumu_notion import Client
+> from notionx import Client
 >
 > token = os.getenv("NOTION_AUTH_TOKEN")
 > client = Client(

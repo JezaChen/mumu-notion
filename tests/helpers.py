@@ -1,7 +1,7 @@
 import contextlib
 import os
 
-from mumu_notion import Client
+from notionx import Client
 from tests.constants import NOTION_AUTH_TOKEN_KEY, NOTION_BASE_PAGE_ID_KEY
 
 

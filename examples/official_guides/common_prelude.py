@@ -2,7 +2,7 @@
 
 import os
 from examples.utils import colored_print, PrintStyle
-from mumu_notion import Client
+from notionx import Client
 
 __all__ = [
     "get_client",

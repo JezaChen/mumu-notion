@@ -2,10 +2,10 @@ import os
 
 import pytest
 
-from mumu_notion import LocalValidationError
+from notionx import LocalValidationError
 from tests.constants import NOTION_BASE_PAGE_ID_KEY
 from tests.helpers import get_client, get_base_page_id
-from mumu_notion.validation_tools import validate_dict_parameter
+from notionx.validation_tools import validate_dict_parameter
 
 
 def test_one_of_validator():
