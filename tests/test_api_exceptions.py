@@ -1,6 +1,6 @@
 import pytest
 
-from mumu_notion import InvalidRequestUrlError, ValidationError
+from notionx import InvalidRequestUrlError, ValidationError
 from tests.helpers import get_client
 
 

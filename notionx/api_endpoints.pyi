@@ -1,7 +1,7 @@
 """ Endpoints definitions """
 import typing
 
-from mumu_notion.client import Client
+from notionx.client import Client
 
 
 class Endpoint:

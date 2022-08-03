@@ -7,12 +7,12 @@ def get_description():
 
 
 setup(
-    name="mumu-notion",
-    version="0.0.3",
+    name="NotionX",
+    version="0.1",
     url="https://github.com/JezaChen/mumu-notion",
     author="Jeza Chen",
     author_email="jezachen@163.com",
-    description="Mumu-notion, a simple, easy-to-use Notion client, is based on the official SDK modification",
+    description="NotionX, a simple, easy-to-use Notion client, is based on the official SDK modification",
     long_description=get_description(),
     long_description_content_type="text/markdown",
     packages=find_packages(exclude=("*examples", "*examples.*")),
@@ -27,5 +27,5 @@ setup(
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: MIT License",
     ],
-    package_data={"mumu_notion": ["py.typed"]},
+    package_data={"notionx": ["py.typed"]},
 )

@@ -5,7 +5,7 @@ from unittest import mock
 import httpx
 import pytest
 
-from mumu_notion import Client, UnknownAPIResponseError, InvalidJsonError, InvalidRequestUrlError, InvalidRequestError, \
+from notionx import Client, UnknownAPIResponseError, InvalidJsonError, InvalidRequestUrlError, InvalidRequestError, \
     ValidationError, MissingVersionError, UnauthorizedError, RestrictedResourceError, ObjectNotFoundError, \
     ConflictError, RateLimitedError, InternalServerError, ServiceUnavailableError, DatabaseConnectionUnavailableError
 from tests.constants import NOTION_AUTH_TOKEN_KEY

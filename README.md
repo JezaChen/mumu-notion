@@ -1,4 +1,4 @@
-<h1 align="center">MuMu-Notion</h1>
+<h1 align="center">NotionX</h1>
 
 <div align="center">
 
@@ -10,7 +10,7 @@
 
 </div>
 
-`Mumu-Notion`, a simple and easy-to-use Notion client, is based on the official SDK modification.
+`NotionX`, a simple and easy-to-use Notion client, is based on the official SDK modification.
 
 ## Implemented features
 
@@ -36,12 +36,12 @@
 Just install it using pip.
 
 ```shell
-pip install mumu-notion
+pip install notionx
 ```
 
 ## Usage
 
-Before using mumu-notion, you need to create an _integration token_, and share at least one page with that integration.
+Before using NotionX, you need to create an _integration token_, and share at least one page with that integration.
 
 - How to create an integration: https://www.notion.so/my-integrations/
 - Notion's official tutorial on creating and sharing pages with an
@@ -53,7 +53,7 @@ To initialize Notion Client by passing in a dictionary (**dictionary parameter s
 token of the above integration, starting with `secret_`).
 
 ```Python
-from mumu_notion import Client
+from notionx import Client
 
 client = Client({
     "auth_token": "your_integration_token"
@@ -63,10 +63,10 @@ client = Client({
 There is another way to initialize, passed in **keyword parameter style**.
 
 ```Python
-from mumu_notion import Client
+from notionx import Client
 
 client = Client(
-    auth_token="your_integration_token"
+  auth_token="your_integration_token"
 )
 ```
 
@@ -80,7 +80,7 @@ will give the invocation of each style later.
 > write it to the environment variables and then initialize the client by
 > ```Python
 > import os
-> from mumu_notion import Client
+> from notionx import Client
 >
 > token = os.getenv("NOTION_AUTH_TOKEN")
 > client = Client(

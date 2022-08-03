@@ -7,9 +7,9 @@ from typing import Optional, Union
 
 import httpx
 
-from mumu_notion.api_endpoints import PagesEndpoint, BlocksEndpoint, DatabasesEndpoint, UsersEndpoint, \
+from notionx.api_endpoints import PagesEndpoint, BlocksEndpoint, DatabasesEndpoint, UsersEndpoint, \
     CommentsEndpoint, SearchEndpoint
-from mumu_notion.errors import raise_api_response_exception_by_err_code, UnknownAPIResponseError
+from notionx.errors import raise_api_response_exception_by_err_code, UnknownAPIResponseError
 
 __all__ = ["ClientOptions", "Client"]
 
