@@ -1,4 +1,4 @@
-<h1 align="center">MuMu-Notion</h1>
+<h1 align="center">NotionX</h1>
 
 <div align="center">
 

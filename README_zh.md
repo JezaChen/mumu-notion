@@ -1,4 +1,4 @@
-<h1 align="center">MuMu-Notion</h1>
+<h1 align="center">NotionX</h1>
 
 <div align="center">
 
@@ -8,7 +8,7 @@
 
 </div>
 
-`Mumu-Notion`，一个简单易用的Notion客户端。
+`NotionX，一个简单易用的Notion客户端。
 
 ## 已经实现的功能
 
