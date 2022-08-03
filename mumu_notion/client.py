@@ -30,7 +30,7 @@ class Client:
     def __init__(
             self,
             options: Optional[Union[ClientOptions, typing.Dict]] = None,
-            **kwargs
+            **kwargs: typing.Any
     ):
         if options is None:
             options = ClientOptions(**kwargs)
@@ -54,7 +54,7 @@ class Client:
         self.comments = CommentsEndpoint(self)
         self.search = SearchEndpoint(self)
 
-    def _make_request(self, method: str, path: str, query: str, body: str):
+    def _make_request(self, method: str, path: str, query: dict, body: dict):
         return self.__http_client.build_request(method, path, params=query, json=body)
 
     def _parse_response(self, rsp: httpx.Response):
@@ -83,8 +83,8 @@ class Client:
     def request(self,
                 method: str,
                 path: str,
-                query: Optional[str] = None,
-                body: Optional[str] = None):
+                query: Optional[dict] = None,
+                body: Optional[dict] = None):
         req = self._make_request(method, path, query, body)
         rsp = self.__http_client.send(req)
         return self._parse_response(rsp)

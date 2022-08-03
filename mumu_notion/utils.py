@@ -3,8 +3,10 @@ import inspect
 
 __all__ = ["organize_kwargs_as_a_dict_param"]
 
+import typing
 
-def organize_kwargs_as_a_dict_param(argument_name):
+
+def organize_kwargs_as_a_dict_param(argument_name: str) -> typing.Callable:
     """ A Decorator
     If the `argument_name` is None, the parameters that are not in the argument list of the func call is
     organized as a dict and passed to the decorated function as the `argument_name` parameter.
