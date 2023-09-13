@@ -87,7 +87,7 @@ class PagesEndpoint(Endpoint):
 
 class BlockChildrenEndpoint(Endpoint):
     @organize_kwargs_as_a_dict_param("body_data")
-    @validate_dict_parameter("body_data", ("children",), ("children",))
+    @validate_dict_parameter("body_data", ("children", "after"), ("children",))
     def append(self, block_id: str, body_data: typing.Optional[typing.Dict] = None):
         """ Creates and appends new children blocks to the parent block_id specified.
         Returns a paginated list of newly created first level children block objects.

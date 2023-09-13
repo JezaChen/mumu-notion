@@ -99,6 +99,14 @@ class BlockChildrenEndpoint(Endpoint):
     ) -> dict: ...
 
     @typing.overload
+    def append(
+            self,
+            block_id: str,
+            children: typing.List[typing.Dict],
+            after: str
+    ) -> dict: ...
+
+    @typing.overload
     def list(
             self,
             block_id: str,

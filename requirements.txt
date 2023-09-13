@@ -1,4 +1,4 @@
-httpx==0.23.0
+httpx~=0.23.0
 pytest-cov
 pytest~=7.1.2
-setuptools==63.3.0
+setuptools~=63.3.0
