@@ -8,7 +8,7 @@ def get_description():
 
 setup(
     name="NotionX",
-    version="0.11",
+    version="0.12",
     url="https://github.com/JezaChen/mumu-notion",
     author="Jeza Chen",
     author_email="jezachen@163.com",
@@ -29,5 +29,5 @@ setup(
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: MIT License",
     ],
-    package_data={"notionx": ["py.typed"]},
+    package_data={"notionx": ["py.typed", "*.pyi", "**/*.pyi"]},
 )
