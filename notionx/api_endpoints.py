@@ -61,12 +61,15 @@ class PagesEndpoint(Endpoint):
             body=body_data
         )
 
-    def retrieve(self, page_id: str) -> dict:
+    @organize_kwargs_as_a_dict_param("query_data")
+    @validate_dict_parameter("query_data", ("filter_properties",))
+    def retrieve(self, page_id: str, query_data: typing.Optional[typing.Dict] = None) -> dict:
         """ Retrieves a Page object using the ID specified.
         See also: https://developers.notion.com/reference/retrieve-a-page
         """
         return self._client.get(
-            f"pages/{page_id}"
+            f"pages/{page_id}",
+            query=query_data
         )
 
     @organize_kwargs_as_a_dict_param("body_data")
