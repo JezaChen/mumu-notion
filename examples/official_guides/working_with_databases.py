@@ -116,6 +116,25 @@ def run_example_code(is_continuous=False):
     if not is_continuous:
         press_enter_to_continue()
 
+    ################################################
+    # Change the icon of these pages from 🥬 to 🥭 #
+    ################################################
+    print_step("Change the icon of these pages from 🥬 to 🥭")
+
+    for page_info in search_rsp["results"]:
+        page_id = page_info["id"]
+        client.pages.update(page_id,
+                            {
+                                'icon': {'type': 'emoji', 'emoji': '🥭'}
+                            })
+    colored_print(f"The icons of these pages are changed to 🥭 successfully. "
+                  f"You can now view the intuitive result by clicking on the following links: "
+                  f"https://www.notion.so/{grocery_database_id.replace('-', '')}",
+                  color=PrintStyle.GREEN)
+
+    if not is_continuous:
+        press_enter_to_continue()
+
     ######################################
     # Retrieve the `Description` property #
     ######################################
