@@ -3,7 +3,7 @@
 <div align="center">
 
 [![codecov](https://codecov.io/gh/JezaChen/mumu-notion/branch/master/graph/badge.svg?token=QKE5Z5JS04)](https://codecov.io/gh/JezaChen/mumu-notion)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mumu-notion?style=flat-square)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/notionx?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/jezachen/mumu-notion)
 
 [中文文档](https://github.com/JezaChen/mumu-notion/blob/master/README_zh.md)
