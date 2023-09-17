@@ -9,6 +9,8 @@ __all__ = [
     "run_example_code",
 ]
 
+from examples.utils.fetcher import get_prop_id_from_database_data
+
 
 def run_example_code(is_continuous=False):
     print_step = generate_step_printer()
@@ -93,6 +95,27 @@ def run_example_code(is_continuous=False):
     print(f"--- Search Result ---\n"
           f"{search_rsp}\n"
           f"--- Search Result ---")
+
+    if not is_continuous:
+        press_enter_to_continue()
+
+    ################################################
+    # Get the first result with limited properties #
+    ################################################
+    print_step("Get the first result with limited properties")
+
+    if len(search_rsp["results"]):
+        first_result_id = search_rsp["results"][0]["id"]
+        prop_name_id = get_prop_id_from_database_data(grocery_database_retrieve_rsp, "Name")
+        prop_description_id = get_prop_id_from_database_data(grocery_database_retrieve_rsp, "Description")
+        first_result_retrieve_rsp = client.pages.retrieve(first_result_id,
+                                                          filter_properties=[prop_name_id, prop_description_id])
+        print(f"--- Retrieve Result ---\n"
+              f"{first_result_retrieve_rsp}\n"
+              f"--- Retrieve Result ---")
+    else:
+        colored_print(f"Sorry, there is no page with the name `Mango` in the database `Grocery List`.",
+                      color=PrintStyle.YELLOW)
 
     if not is_continuous:
         press_enter_to_continue()

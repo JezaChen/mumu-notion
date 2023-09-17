@@ -43,3 +43,36 @@ def test_PyNotionAPIResponseExceptionMeta():
             err_code = ""  # err_code is empty
             err_message = ""
 
+
+@pytest.mark.parametrize("obj, expected", [
+    (1, False),
+    ("", True),
+    ([], True),
+    ((), True),
+    ({}, True),
+    (set(), True),
+    (None, False),
+    (object(), False),
+])
+def test_iterable(obj, expected):
+    """ Test if the `iterable` function works as expected.
+    """
+    from notionx.utils import iterable
+    assert iterable(obj) == expected
+
+
+@pytest.mark.parametrize("params, expected", [
+    ({"a": "%20"}, {"a": " "}),
+    ({"a": "%20", "b": "%20"}, {"a": " ", "b": " "}),
+    ({"a": "%20", "b": ["%20", "%20"]}, {"a": " ", "b": [" ", " "]}),
+    ({"a": "%60"}, {"a": "`"}),
+    ({"a": "%60", "b": "%20"}, {"a": "`", "b": " "}),
+    ({"a": "simple", "b": "%20"}, {"a": "simple", "b": " "}),
+    ({"a": "simple", "b": ["%60", "simple"]}, {"a": "simple", "b": ["`", "simple"]}),
+])
+def test_unquote_params(params, expected):
+    """ Test if the `unquote_params` function works as expected.
+    """
+    from notionx.utils import unquote_params
+    unquote_params(params)
+    assert params == expected  # in-place modification
