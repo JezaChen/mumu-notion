@@ -2,7 +2,7 @@ import functools
 import inspect
 import urllib.parse
 
-__all__ = ["organize_kwargs_as_a_dict_param"]
+__all__ = ["organize_kwargs_as_a_dict_param", "iterable", "unquote_params"]
 
 import typing
 
@@ -66,7 +66,7 @@ def unquote_params(params: typing.Dict[str, typing.Union[str, typing.List[str]]]
     @note: This function will modify the params dict in-place.
     """
     for key, value in params.items():
-        if iterable(value):
-            params[key] = [urllib.parse.unquote(v) for v in value]
-        else:
+        if isinstance(value, str):
             params[key] = urllib.parse.unquote(value)
+        elif iterable(value):
+            params[key] = [urllib.parse.unquote(v) for v in value]
