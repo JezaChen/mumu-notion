@@ -9,6 +9,8 @@ __all__ = [
     "run_example_code",
 ]
 
+from examples.utils.fetcher import get_prop_id_from_database_data
+
 
 def run_example_code(is_continuous=False):
     print_step = generate_step_printer()
@@ -98,20 +100,22 @@ def run_example_code(is_continuous=False):
         press_enter_to_continue()
 
     ################################################
-    # Change the icon of these pages from 🥬 to 🥭 #
+    # Get the first result with limited properties #
     ################################################
-    print_step("Change the icon of these pages from 🥬 to 🥭")
+    print_step("Get the first result with limited properties")
 
-    for page_info in search_rsp["results"]:
-        page_id = page_info["id"]
-        client.pages.update(page_id,
-                            {
-                                'icon': {'type': 'emoji', 'emoji': '🥭'}
-                            })
-    colored_print(f"The icons of these pages are changed to 🥭 successfully. "
-                  f"You can now view the intuitive result by clicking on the following links: "
-                  f"https://www.notion.so/{grocery_database_id.replace('-', '')}",
-                  color=PrintStyle.GREEN)
+    if len(search_rsp["results"]):
+        first_result_id = search_rsp["results"][0]["id"]
+        prop_name_id = get_prop_id_from_database_data(grocery_database_retrieve_rsp, "Name")
+        prop_description_id = get_prop_id_from_database_data(grocery_database_retrieve_rsp, "Description")
+        first_result_retrieve_rsp = client.pages.retrieve(first_result_id,
+                                                          filter_properties=[prop_name_id, prop_description_id])
+        print(f"--- Retrieve Result ---\n"
+              f"{first_result_retrieve_rsp}\n"
+              f"--- Retrieve Result ---")
+    else:
+        colored_print(f"Sorry, there is no page with the name `Mango` in the database `Grocery List`.",
+                      color=PrintStyle.YELLOW)
 
     if not is_continuous:
         press_enter_to_continue()

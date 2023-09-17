@@ -1,5 +1,6 @@
 import functools
 import inspect
+import urllib.parse
 
 __all__ = ["organize_kwargs_as_a_dict_param"]
 
@@ -46,3 +47,26 @@ def organize_kwargs_as_a_dict_param(argument_name: str) -> typing.Callable:
         return wrapper
 
     return decorator
+
+
+def iterable(obj: typing.Any) -> bool:
+    """ Check if the object is iterable.
+    """
+    try:
+        iter(obj)
+    except TypeError:
+        return False
+    else:
+        return True
+
+
+def unquote_params(params: typing.Dict[str, typing.Union[str, typing.List[str]]]):
+    """ Unquote the values of the params dict.
+
+    @note: This function will modify the params dict in-place.
+    """
+    for key, value in params.items():
+        if iterable(value):
+            params[key] = [urllib.parse.unquote(v) for v in value]
+        else:
+            params[key] = urllib.parse.unquote(value)

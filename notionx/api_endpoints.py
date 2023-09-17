@@ -1,7 +1,7 @@
 """ Endpoints definitions """
 import typing
 
-from notionx.utils import organize_kwargs_as_a_dict_param
+from notionx.utils import organize_kwargs_as_a_dict_param, unquote_params
 from notionx.validation_tools import OneOf, validate_dict_parameter
 
 if typing.TYPE_CHECKING:
@@ -67,6 +67,11 @@ class PagesEndpoint(Endpoint):
         """ Retrieves a Page object using the ID specified.
         See also: https://developers.notion.com/reference/retrieve-a-page
         """
+        # DO NOT escape the query data!!!
+        # because the property id returned by Notion API is already escaped
+        # but the httpx will escape it again
+        # so we need to unescape it
+        unquote_params(query_data)
         return self._client.get(
             f"pages/{page_id}",
             query=query_data
