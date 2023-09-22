@@ -168,9 +168,9 @@ class ServiceUnavailableError(PyNotionAPIResponseException):
 
 
 class DatabaseConnectionUnavailableError(PyNotionAPIResponseException):
-    """ Notion's database is unavailable or in an unqueryable state. Try again later.
+    """ Notion's database is unavailable or is not in a state that can be queried. Try again later.
     """
-    err_message = "Notion's database is unavailable or in an unqueryable state. Try again later."
+    err_message = "Notion's database is unavailable or is not in a state that can be queried. Try again later."
     err_code = "database_connection_unavailable"
 
 
