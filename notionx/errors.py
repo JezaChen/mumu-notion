@@ -7,6 +7,7 @@ __all__ = [
     "InvalidJsonError",
     "InvalidRequestUrlError",
     "InvalidRequestError",
+    "InvalidGrantError",
     "ValidationError",
     "MissingVersionError",
     "UnauthorizedError",
@@ -17,6 +18,7 @@ __all__ = [
     "InternalServerError",
     "ServiceUnavailableError",
     "DatabaseConnectionUnavailableError",
+    "GatewayTimeoutError",
     "UnknownAPIResponseError",
 ]
 _MAPPING_ERR_CODE_TO_API_RESPONSE_ERROR_CLASS = {}
@@ -80,6 +82,15 @@ class InvalidRequestError(PyNotionAPIResponseException):
     """
     err_message = "This request is not supported."
     err_code = "invalid_request"
+
+
+class InvalidGrantError(PyNotionAPIResponseException):
+    """ The provided authorization grant (e.g., authorization code, resource owner credentials)
+    or refresh token is invalid, expired, revoked, does not match the redirection URI used in the authorization request,
+    or was issued to another client. See OAuth 2.0 documentation for more information.
+    """
+    err_message = "The provided authorization grant or refresh token is invalid."
+    err_code = "invalid_grant"
 
 
 class ValidationError(PyNotionAPIResponseException):
@@ -157,10 +168,17 @@ class ServiceUnavailableError(PyNotionAPIResponseException):
 
 
 class DatabaseConnectionUnavailableError(PyNotionAPIResponseException):
-    """ Notion's database is unavailable or in an unqueryable state. Try again later.
+    """ Notion's database is unavailable or is not in a state that can be queried. Try again later.
     """
-    err_message = "Notion's database is unavailable or in an unqueryable state. Try again later."
+    err_message = "Notion's database is unavailable or is not in a state that can be queried. Try again later."
     err_code = "database_connection_unavailable"
+
+
+class GatewayTimeoutError(PyNotionAPIResponseException):
+    """ Notion timed out while attempting to complete this request. Please try again later.
+    """
+    err_message = "Notion timed out while attempting to complete this request. Please try again later."
+    err_code = "gateway_timeout"
 
 
 class UnknownAPIResponseError(PyNotionAPIResponseException):

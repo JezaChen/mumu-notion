@@ -6,8 +6,10 @@ import httpx
 import pytest
 
 from notionx import Client, UnknownAPIResponseError, InvalidJsonError, InvalidRequestUrlError, InvalidRequestError, \
-    ValidationError, MissingVersionError, UnauthorizedError, RestrictedResourceError, ObjectNotFoundError, \
-    ConflictError, RateLimitedError, InternalServerError, ServiceUnavailableError, DatabaseConnectionUnavailableError
+    InvalidGrantError, ValidationError, MissingVersionError, UnauthorizedError, RestrictedResourceError, \
+    ObjectNotFoundError, ConflictError, RateLimitedError, InternalServerError, ServiceUnavailableError, \
+    DatabaseConnectionUnavailableError, GatewayTimeoutError
+
 from tests.constants import NOTION_AUTH_TOKEN_KEY
 from tests.helpers import get_client
 
@@ -60,6 +62,7 @@ NOTION_API_RESPONSE_ERRORS = {
     (400, "invalid_json", InvalidJsonError),
     (400, "invalid_request_url", InvalidRequestUrlError),
     (400, "invalid_request", InvalidRequestError),
+    (400, "invalid_grant", InvalidGrantError),
     (400, "validation_error", ValidationError),
     (400, "missing_version", MissingVersionError),
     (401, "unauthorized", UnauthorizedError),
@@ -70,6 +73,7 @@ NOTION_API_RESPONSE_ERRORS = {
     (500, "internal_server_error", InternalServerError),
     (503, "service_unavailable", ServiceUnavailableError),
     (503, "database_connection_unavailable", DatabaseConnectionUnavailableError),
+    (504, "gateway_timeout", GatewayTimeoutError),
     # Test Unknown API Response Error
     (400, "unknown_error", UnknownAPIResponseError)
 }

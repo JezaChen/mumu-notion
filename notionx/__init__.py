@@ -10,6 +10,7 @@ __all__ = [
     "InvalidJsonError",
     "InvalidRequestUrlError",
     "InvalidRequestError",
+    "InvalidGrantError",
     "ValidationError",
     "MissingVersionError",
     "UnauthorizedError",
@@ -20,6 +21,7 @@ __all__ = [
     "InternalServerError",
     "ServiceUnavailableError",
     "DatabaseConnectionUnavailableError",
+    "GatewayTimeoutError",
     "UnknownAPIResponseError",
     "LocalValidationError",
 ]
