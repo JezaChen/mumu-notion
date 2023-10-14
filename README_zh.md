@@ -3,12 +3,12 @@
 <div align="center">
 
 [![codecov](https://codecov.io/gh/JezaChen/mumu-notion/branch/master/graph/badge.svg?token=QKE5Z5JS04)](https://codecov.io/gh/JezaChen/mumu-notion)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mumu-notion?style=flat-square)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/notionx?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/jezachen/mumu-notion)
 
 </div>
 
-`NotionX，一个简单易用的Notion客户端。
+`NotionX`，一个简单易用的Notion客户端。
 
 ## 已经实现的功能
 
