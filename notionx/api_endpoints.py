@@ -9,7 +9,8 @@ if typing.TYPE_CHECKING:
 
     from notionx.client import Client
 
-    DictOrAwaitableDict = typing.Union[typing.Dict, Awaitable[typing.Dict]]
+DictOrAwaitableDict = typing.Union[typing.Dict, Awaitable[typing.Dict]]
+OptionalDict = typing.Optional[typing.Dict]
 
 __all__ = [
     "Endpoint",
@@ -32,8 +33,7 @@ class Endpoint:
 class PagePropertiesEndpoint(Endpoint):
     @organize_kwargs_as_a_dict_param("query_data")
     @validate_dict_parameter("query_data", ("start_cursor", "page_size"))
-    def retrieve(self, page_id: str, property_id: str,
-                 query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def retrieve(self, page_id: str, property_id: str, query_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Retrieves a property_item object for a given page_id and property_id.
         Depending on the property type,
         the object returned will either be a value or a paginated list of property item values.
@@ -57,7 +57,7 @@ class PagesEndpoint(Endpoint):
     @organize_kwargs_as_a_dict_param("body_data")
     @validate_dict_parameter("body_data", ("parent", "properties", "children", "icon", "cover"),
                              ("parent", "properties"))
-    def create(self, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def create(self, body_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Creates a new page in the specified database or as a child of an existing page.
         See also: https://developers.notion.com/reference/post-page
         """
@@ -68,7 +68,7 @@ class PagesEndpoint(Endpoint):
 
     @organize_kwargs_as_a_dict_param("query_data")
     @validate_dict_parameter("query_data", ("filter_properties",))
-    def retrieve(self, page_id: str, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def retrieve(self, page_id: str, query_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Retrieves a Page object using the ID specified.
         See also: https://developers.notion.com/reference/retrieve-a-page
         """
@@ -84,7 +84,7 @@ class PagesEndpoint(Endpoint):
 
     @organize_kwargs_as_a_dict_param("body_data")
     @validate_dict_parameter("body_data", ("properties", "archived", "icon", "cover"))
-    def update(self, page_id: str, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def update(self, page_id: str, body_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Updates page property values for the specified page.
         Properties that are not set via the properties parameter will remain unchanged.
 
@@ -101,7 +101,7 @@ class PagesEndpoint(Endpoint):
 class BlockChildrenEndpoint(Endpoint):
     @organize_kwargs_as_a_dict_param("body_data")
     @validate_dict_parameter("body_data", ("children", "after"), ("children",))
-    def append(self, block_id: str, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def append(self, block_id: str, body_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Creates and appends new children blocks to the parent block_id specified.
         Returns a paginated list of newly created first level children block objects.
         See also: https://developers.notion.com/reference/patch-block-children
@@ -113,7 +113,7 @@ class BlockChildrenEndpoint(Endpoint):
 
     @organize_kwargs_as_a_dict_param("query_data")
     @validate_dict_parameter("query_data", ("start_cursor", "page_size"))
-    def list(self, block_id: str, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def list(self, block_id: str, query_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Returns a paginated array of child block objects contained in the block using the ID specified.
         In order to receive a complete representation of a block,
         you may need to recursively retrieve the block children of child blocks.
@@ -168,7 +168,7 @@ class BlocksEndpoint(Endpoint):
             "synced_block",
             "table",
             "archived"))
-    def update(self, block_id: str, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def update(self, block_id: str, body_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Updates the content for the specified block_id based on the block type.
         Supported fields based on the block object type
         (see Block object (https://developers.notion.com/reference/block#block-type-object)
@@ -203,7 +203,7 @@ class DatabasesEndpoint(Endpoint):
 
     @organize_kwargs_as_a_dict_param("body_data")
     @validate_dict_parameter("body_data", ("filter", "sorts", "start_cursor", "page_size"))
-    def query(self, database_id: str, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def query(self, database_id: str, body_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Gets a list of Pages contained in the database,
         filtered and ordered according to the filter conditions and sort criteria provided in the request.
         The response may contain fewer than page_size of results.
@@ -216,7 +216,7 @@ class DatabasesEndpoint(Endpoint):
 
     @organize_kwargs_as_a_dict_param("body_data")
     @validate_dict_parameter("body_data", ("parent", "title", "properties"), ("parent", "properties"))
-    def create(self, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def create(self, body_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Creates a database as a subpage in the specified parent page, with the specified properties schema.
         See also: https://developers.notion.com/reference/create-a-database
         """
@@ -227,7 +227,7 @@ class DatabasesEndpoint(Endpoint):
 
     @organize_kwargs_as_a_dict_param("body_data")
     @validate_dict_parameter("body_data", ("title", "properties", "description"))
-    def update(self, database_id: str, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def update(self, database_id: str, body_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Updates an existing database as specified by the parameters.
         See also: https://developers.notion.com/reference/update-a-database
         """
@@ -238,7 +238,7 @@ class DatabasesEndpoint(Endpoint):
 
     @organize_kwargs_as_a_dict_param("query_data")
     @validate_dict_parameter("query_data", ("start_cursor", "page_size"))
-    def list(self, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def list(self, query_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ List all Databases shared with the authenticated integration.
         The response may contain fewer than page_size of results.
 
@@ -262,7 +262,7 @@ class UsersEndpoint(Endpoint):
 
     @organize_kwargs_as_a_dict_param("query_data")
     @validate_dict_parameter("query_data", ("start_cursor", "page_size"))
-    def list(self, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def list(self, query_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Returns a paginated list of Users for the workspace.
         The response may contain fewer than page_size of results.
         See also: https://developers.notion.com/reference/get-users
@@ -285,7 +285,7 @@ class UsersEndpoint(Endpoint):
 class CommentsEndpoint(Endpoint):
     @organize_kwargs_as_a_dict_param("query_data")
     @validate_dict_parameter("query_data", ("block_id", "start_cursor", "page_size"), ("block_id",))
-    def list(self, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def list(self, query_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Retrieves a list of un-resolved Comment objects from a page or block.
         See also: https://developers.notion.com/reference/retrieve-a-comment
         """
@@ -297,7 +297,7 @@ class CommentsEndpoint(Endpoint):
     @organize_kwargs_as_a_dict_param("body_data")
     @validate_dict_parameter("body_data", ("parent", "discussion_id", "rich_text"),
                              ("rich_text", OneOf("discussion_id", "parent")))
-    def create(self, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def create(self, body_data: OptionalDict = None) -> DictOrAwaitableDict:
         """
         Creates a comment in a page or existing discussion thread.
         There are two locations you can add a new comment to:
@@ -314,7 +314,7 @@ class CommentsEndpoint(Endpoint):
 class SearchEndpoint(Endpoint):
     @organize_kwargs_as_a_dict_param("body_data")
     @validate_dict_parameter("body_data", ("query", "sort", "filter", "start_cursor", "page_size"))
-    def __call__(self, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict:
+    def __call__(self, body_data: OptionalDict = None) -> DictOrAwaitableDict:
         """ Searches all original pages, databases, and child pages/databases that are shared with the integration.
         It will not return linked databases, since these duplicate their source databases.
         See also: https://developers.notion.com/reference/post-search

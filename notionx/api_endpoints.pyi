@@ -5,6 +5,7 @@ from notionx.client import Client
 from collections.abc import Awaitable
 
 DictOrAwaitableDict = typing.Union[typing.Dict, Awaitable[typing.Dict]]
+OptionalDict = typing.Optional[typing.Dict]
 
 
 class Endpoint:
@@ -41,7 +42,7 @@ class PagePropertiesEndpoint(Endpoint):
             self,
             page_id: str,
             property_id: str,
-            query_data: typing.Optional[typing.Dict] = None
+            query_data: OptionalDict = None
     ) -> DictOrAwaitableDict: ...
 
 
@@ -53,7 +54,7 @@ class PagesEndpoint(Endpoint):
     @typing.overload
     def create(
             self,
-            body_data: typing.Optional[typing.Dict]
+            body_data: OptionalDict
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
@@ -62,34 +63,39 @@ class PagesEndpoint(Endpoint):
             parent: typing.Dict,
             properties: typing.Dict,
             children: typing.Optional[typing.List[typing.Dict]] = None,
-            icon: typing.Optional[typing.Dict] = None,
-            cover: typing.Optional[typing.Dict] = None
+            icon: OptionalDict = None,
+            cover: OptionalDict = None
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def retrieve(self, page_id: str, query_data: typing.Optional[typing.Dict] = None) -> dict | typing.Awaitable[
-        dict]: ...
+    def retrieve(
+            self,
+            page_id: str,
+            query_data: OptionalDict = None
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def retrieve(self, page_id: str, filter_properties: typing.Optional[typing.List[str]] = None) -> dict | \
-                                                                                                     typing.Awaitable[
-                                                                                                         dict]: ...
+    def retrieve(
+            self,
+            page_id: str,
+            filter_properties: typing.Optional[typing.List[str]] = None
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def update(
             self,
             page_id: str,
-            body_data: typing.Optional[typing.Dict] = None
+            body_data: OptionalDict = None
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def update(
             self,
             page_id: str,
-            properties: typing.Optional[typing.Dict] = None,
+            properties: OptionalDict = None,
             archived: typing.Optional[bool] = None,
-            icon: typing.Optional[typing.Dict] = None,
-            cover: typing.Optional[typing.Dict] = None
+            icon: OptionalDict = None,
+            cover: OptionalDict = None
     ) -> DictOrAwaitableDict: ...
 
 
@@ -98,7 +104,7 @@ class BlockChildrenEndpoint(Endpoint):
     def append(
             self,
             block_id: str,
-            body_data: typing.Optional[typing.Dict]
+            body_data: OptionalDict
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
@@ -120,7 +126,7 @@ class BlockChildrenEndpoint(Endpoint):
     def list(
             self,
             block_id: str,
-            query_data: typing.Optional[typing.Dict] = None
+            query_data: OptionalDict = None
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
@@ -143,41 +149,41 @@ class BlocksEndpoint(Endpoint):
     def update(
             self,
             block_id: str,
-            body_data: typing.Optional[typing.Dict] = None
+            body_data: OptionalDict = None
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def update(
             self,
             block_id: str,
-            embed: typing.Optional[typing.Dict] = None,
-            type: typing.Optional[typing.Dict] = None,
-            bookmark: typing.Optional[typing.Dict] = None,
-            image: typing.Optional[typing.Dict] = None,
-            video: typing.Optional[typing.Dict] = None,
-            pdf: typing.Optional[typing.Dict] = None,
-            file: typing.Optional[typing.Dict] = None,
-            audio: typing.Optional[typing.Dict] = None,
-            code: typing.Optional[typing.Dict] = None,
-            equation: typing.Optional[typing.Dict] = None,
-            divider: typing.Optional[typing.Dict] = None,
-            breadcrumb: typing.Optional[typing.Dict] = None,
-            table_of_contents: typing.Optional[typing.Dict] = None,
-            link_to_page: typing.Optional[typing.Dict] = None,
-            table_row: typing.Optional[typing.Dict] = None,
-            heading_1: typing.Optional[typing.Dict] = None,
-            heading_2: typing.Optional[typing.Dict] = None,
-            heading_3: typing.Optional[typing.Dict] = None,
-            paragraph: typing.Optional[typing.Dict] = None,
-            bulleted_list_item: typing.Optional[typing.Dict] = None,
-            numbered_list_item: typing.Optional[typing.Dict] = None,
-            quote: typing.Optional[typing.Dict] = None,
-            to_do: typing.Optional[typing.Dict] = None,
-            toggle: typing.Optional[typing.Dict] = None,
-            template: typing.Optional[typing.Dict] = None,
-            callout: typing.Optional[typing.Dict] = None,
-            synced_block: typing.Optional[typing.Dict] = None,
-            table: typing.Optional[typing.Dict] = None,
+            embed: OptionalDict = None,
+            type: OptionalDict = None,
+            bookmark: OptionalDict = None,
+            image: OptionalDict = None,
+            video: OptionalDict = None,
+            pdf: OptionalDict = None,
+            file: OptionalDict = None,
+            audio: OptionalDict = None,
+            code: OptionalDict = None,
+            equation: OptionalDict = None,
+            divider: OptionalDict = None,
+            breadcrumb: OptionalDict = None,
+            table_of_contents: OptionalDict = None,
+            link_to_page: OptionalDict = None,
+            table_row: OptionalDict = None,
+            heading_1: OptionalDict = None,
+            heading_2: OptionalDict = None,
+            heading_3: OptionalDict = None,
+            paragraph: OptionalDict = None,
+            bulleted_list_item: OptionalDict = None,
+            numbered_list_item: OptionalDict = None,
+            quote: OptionalDict = None,
+            to_do: OptionalDict = None,
+            toggle: OptionalDict = None,
+            template: OptionalDict = None,
+            callout: OptionalDict = None,
+            synced_block: OptionalDict = None,
+            table: OptionalDict = None,
             archived: typing.Optional[bool] = None
     ) -> DictOrAwaitableDict: ...
 
@@ -191,42 +197,48 @@ class DatabasesEndpoint(Endpoint):
     def query(
             self,
             database_id: str,
-            body_data: typing.Optional[typing.Dict] = None
+            body_data: OptionalDict = None
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def query(
             self,
             database_id: str,
-            filter: typing.Optional[typing.Dict] = None,
+            filter: OptionalDict = None,
             sorts: typing.Optional[typing.List] = None,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, body_data: typing.Optional[typing.Dict]) -> DictOrAwaitableDict: ...
+    def create(self, body_data: OptionalDict) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, parent: typing.Dict, properties: typing.Dict, title: typing.List[typing.Dict]) -> dict | \
-                                                                                                       typing.Awaitable[
-                                                                                                           dict]: ...
+    def create(
+            self,
+            parent: typing.Dict,
+            properties: typing.Dict,
+            title: typing.List[typing.Dict]
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def update(self, database_id: str, body_data: typing.Optional[typing.Dict] = None) -> dict | typing.Awaitable[
-        dict]: ...
+    def update(
+            self,
+            database_id: str,
+            body_data: OptionalDict = None
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def update(
             self,
             database_id: str,
             title: typing.Optional[typing.List[typing.Dict]] = None,
-            properties: typing.Optional[typing.Dict] = None,
+            properties: OptionalDict = None,
             description: typing.Optional[typing.List[typing.Dict]] = None
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def list(self, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict: ...
+    def list(self, query_data: OptionalDict = None) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def list(
@@ -240,7 +252,7 @@ class UsersEndpoint(Endpoint):
     def retrieve(self, user_id) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def list(self, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict: ...
+    def list(self, query_data: OptionalDict = None) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def list(
@@ -254,7 +266,7 @@ class UsersEndpoint(Endpoint):
 
 class CommentsEndpoint(Endpoint):
     @typing.overload
-    def list(self, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict: ...
+    def list(self, query_data: OptionalDict = None) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def list(
@@ -265,7 +277,7 @@ class CommentsEndpoint(Endpoint):
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, body_data: typing.Optional[typing.Dict]) -> DictOrAwaitableDict: ...
+    def create(self, body_data: OptionalDict) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def create(self, parent: typing.Dict, rich_text: typing.Dict) -> DictOrAwaitableDict: ...
@@ -276,14 +288,14 @@ class CommentsEndpoint(Endpoint):
 
 class SearchEndpoint(Endpoint):
     @typing.overload
-    def __call__(self, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict: ...
+    def __call__(self, body_data: OptionalDict = None) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def __call__(
             self,
             query: typing.Optional[str] = None,
-            sort: typing.Optional[typing.Dict] = None,
-            filter: typing.Optional[typing.Dict] = None,
+            sort: OptionalDict = None,
+            filter: OptionalDict = None,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
     ) -> DictOrAwaitableDict: ...
