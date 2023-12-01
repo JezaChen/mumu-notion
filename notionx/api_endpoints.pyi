@@ -2,6 +2,9 @@
 import typing
 
 from notionx.client import Client
+from collections.abc import Awaitable
+
+DictOrAwaitableDict = typing.Union[typing.Dict, Awaitable[typing.Dict]]
 
 
 class Endpoint:
@@ -31,7 +34,7 @@ class PagePropertiesEndpoint(Endpoint):
             property_id: str,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def retrieve(
@@ -39,7 +42,7 @@ class PagePropertiesEndpoint(Endpoint):
             page_id: str,
             property_id: str,
             query_data: typing.Optional[typing.Dict] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
 
 class PagesEndpoint(Endpoint):
@@ -51,7 +54,7 @@ class PagesEndpoint(Endpoint):
     def create(
             self,
             body_data: typing.Optional[typing.Dict]
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def create(
@@ -61,20 +64,23 @@ class PagesEndpoint(Endpoint):
             children: typing.Optional[typing.List[typing.Dict]] = None,
             icon: typing.Optional[typing.Dict] = None,
             cover: typing.Optional[typing.Dict] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def retrieve(self, page_id: str, query_data: typing.Optional[typing.Dict] = None) -> dict: ...
+    def retrieve(self, page_id: str, query_data: typing.Optional[typing.Dict] = None) -> dict | typing.Awaitable[
+        dict]: ...
 
     @typing.overload
-    def retrieve(self, page_id: str, filter_properties: typing.Optional[typing.List[str]] = None) -> dict: ...
+    def retrieve(self, page_id: str, filter_properties: typing.Optional[typing.List[str]] = None) -> dict | \
+                                                                                                     typing.Awaitable[
+                                                                                                         dict]: ...
 
     @typing.overload
     def update(
             self,
             page_id: str,
             body_data: typing.Optional[typing.Dict] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def update(
@@ -84,7 +90,7 @@ class PagesEndpoint(Endpoint):
             archived: typing.Optional[bool] = None,
             icon: typing.Optional[typing.Dict] = None,
             cover: typing.Optional[typing.Dict] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
 
 class BlockChildrenEndpoint(Endpoint):
@@ -93,14 +99,14 @@ class BlockChildrenEndpoint(Endpoint):
             self,
             block_id: str,
             body_data: typing.Optional[typing.Dict]
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def append(
             self,
             block_id: str,
             children: typing.List[typing.Dict]
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def append(
@@ -108,14 +114,14 @@ class BlockChildrenEndpoint(Endpoint):
             block_id: str,
             children: typing.List[typing.Dict],
             after: str
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def list(
             self,
             block_id: str,
             query_data: typing.Optional[typing.Dict] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def list(
@@ -123,7 +129,7 @@ class BlockChildrenEndpoint(Endpoint):
             block_id: str,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
 
 class BlocksEndpoint(Endpoint):
@@ -131,14 +137,14 @@ class BlocksEndpoint(Endpoint):
 
     def __init__(self, client: Client): ...
 
-    def retrieve(self, block_id: str) -> dict: ...
+    def retrieve(self, block_id: str) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def update(
             self,
             block_id: str,
             body_data: typing.Optional[typing.Dict] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def update(
@@ -173,20 +179,20 @@ class BlocksEndpoint(Endpoint):
             synced_block: typing.Optional[typing.Dict] = None,
             table: typing.Optional[typing.Dict] = None,
             archived: typing.Optional[bool] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
-    def delete(self, block_id: str) -> dict: ...
+    def delete(self, block_id: str) -> DictOrAwaitableDict: ...
 
 
 class DatabasesEndpoint(Endpoint):
-    def retrieve(self, database_id) -> dict: ...
+    def retrieve(self, database_id) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def query(
             self,
             database_id: str,
             body_data: typing.Optional[typing.Dict] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def query(
@@ -196,16 +202,19 @@ class DatabasesEndpoint(Endpoint):
             sorts: typing.Optional[typing.List] = None,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, body_data: typing.Optional[typing.Dict]) -> dict: ...
+    def create(self, body_data: typing.Optional[typing.Dict]) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, parent: typing.Dict, properties: typing.Dict, title: typing.List[typing.Dict]) -> dict: ...
+    def create(self, parent: typing.Dict, properties: typing.Dict, title: typing.List[typing.Dict]) -> dict | \
+                                                                                                       typing.Awaitable[
+                                                                                                           dict]: ...
 
     @typing.overload
-    def update(self, database_id: str, body_data: typing.Optional[typing.Dict] = None) -> dict: ...
+    def update(self, database_id: str, body_data: typing.Optional[typing.Dict] = None) -> dict | typing.Awaitable[
+        dict]: ...
 
     @typing.overload
     def update(
@@ -214,38 +223,38 @@ class DatabasesEndpoint(Endpoint):
             title: typing.Optional[typing.List[typing.Dict]] = None,
             properties: typing.Optional[typing.Dict] = None,
             description: typing.Optional[typing.List[typing.Dict]] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def list(self, query_data: typing.Optional[typing.Dict] = None) -> dict: ...
+    def list(self, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def list(
             self,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
 
 class UsersEndpoint(Endpoint):
-    def retrieve(self, user_id) -> dict: ...
+    def retrieve(self, user_id) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def list(self, query_data: typing.Optional[typing.Dict] = None) -> dict: ...
+    def list(self, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def list(
             self,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
-    def me(self) -> dict: ...
+    def me(self) -> DictOrAwaitableDict: ...
 
 
 class CommentsEndpoint(Endpoint):
     @typing.overload
-    def list(self, query_data: typing.Optional[typing.Dict] = None) -> dict: ...
+    def list(self, query_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def list(
@@ -253,21 +262,21 @@ class CommentsEndpoint(Endpoint):
             block_id: str,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, body_data: typing.Optional[typing.Dict]) -> dict: ...
+    def create(self, body_data: typing.Optional[typing.Dict]) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, parent: typing.Dict, rich_text: typing.Dict) -> dict: ...
+    def create(self, parent: typing.Dict, rich_text: typing.Dict) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, discussion_id: str, rich_text: typing.Dict) -> dict: ...
+    def create(self, discussion_id: str, rich_text: typing.Dict) -> DictOrAwaitableDict: ...
 
 
 class SearchEndpoint(Endpoint):
     @typing.overload
-    def __call__(self, body_data: typing.Optional[typing.Dict] = None) -> dict: ...
+    def __call__(self, body_data: typing.Optional[typing.Dict] = None) -> DictOrAwaitableDict: ...
 
     @typing.overload
     def __call__(
@@ -277,4 +286,4 @@ class SearchEndpoint(Endpoint):
             filter: typing.Optional[typing.Dict] = None,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
-    ) -> dict: ...
+    ) -> DictOrAwaitableDict: ...
