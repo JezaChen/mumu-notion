@@ -28,7 +28,8 @@ class ClientOptions:
 
 
 class Client:
-    __http_client: httpx.Client
+    _client_type: type
+    _http_client: httpx.Client
     options: ClientOptions
     pages: PagesEndpoint
     blocks: BlocksEndpoint
@@ -60,3 +61,39 @@ class Client:
     def patch(self, path: str, query: Optional[dict] = None, body: Optional[dict] = None) -> dict: ...
 
     def delete(self, path: str, query: Optional[dict] = None, body: Optional[dict] = None) -> dict: ...
+
+
+class AsyncClient(Client):
+    _client_type: type
+    _http_client: httpx.AsyncClient
+    options: ClientOptions
+    pages: PagesEndpoint
+    blocks: BlocksEndpoint
+    databases: DatabasesEndpoint
+    users: UsersEndpoint
+    comments: CommentsEndpoint
+    search: SearchEndpoint
+
+    def __init__(
+            self,
+            options: Optional[Union[ClientOptions, typing.Dict]] = None,
+            **kwargs: typing.Any
+    ): ...
+
+    def _make_request(self, method: str, path: str, query: dict, body: dict) -> httpx.Request: ...
+
+    def _parse_response(self, rsp: httpx.Response) -> dict: ...
+
+    async def request(self,
+                method: str,
+                path: str,
+                query: Optional[dict] = None,
+                body: Optional[dict] = None) -> dict: ...
+
+    async def get(self, path: str, query: Optional[dict] = None, body: Optional[dict] = None) -> dict: ...
+
+    async def post(self, path: str, query: Optional[dict] = None, body: Optional[dict] = None) -> dict: ...
+
+    async def patch(self, path: str, query: Optional[dict] = None, body: Optional[dict] = None) -> dict: ...
+
+    async def delete(self, path: str, query: Optional[dict] = None, body: Optional[dict] = None) -> dict: ...

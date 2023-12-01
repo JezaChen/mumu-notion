@@ -25,7 +25,9 @@ class ClientOptions:
 
 
 class Client:
-    __http_client: httpx.Client
+    _http_client: 'httpx.Client'
+
+    _client_type = httpx.Client
 
     def __init__(
             self,
@@ -38,7 +40,7 @@ class Client:
             options = ClientOptions(**options)
         self.options = options
 
-        self.__http_client = httpx.Client(
+        self._http_client = self._client_type(
             base_url=self.options.base_url,
             headers={
                 "Authorization": f"Bearer {self.options.auth_token}",
@@ -55,7 +57,7 @@ class Client:
         self.search = SearchEndpoint(self)
 
     def _make_request(self, method: str, path: str, query: dict, body: dict):
-        return self.__http_client.build_request(method, path, params=query, json=body)
+        return self._http_client.build_request(method, path, params=query, json=body)
 
     def _parse_response(self, rsp: httpx.Response):
         try:
@@ -86,7 +88,28 @@ class Client:
                 query: Optional[dict] = None,
                 body: Optional[dict] = None):
         req = self._make_request(method, path, query, body)
-        rsp = self.__http_client.send(req)
+        rsp = self._http_client.send(req)
+        return self._parse_response(rsp)
+
+    # Specific Request Methods
+    get = functools.partialmethod(request, "get")
+    post = functools.partialmethod(request, "post")
+    patch = functools.partialmethod(request, "patch")
+    delete = functools.partialmethod(request, "delete")
+
+
+class AsyncClient(Client):
+    _http_client: httpx.AsyncClient
+
+    _client_type = httpx.AsyncClient
+
+    async def request(self,
+                      method: str,
+                      path: str,
+                      query: Optional[dict] = None,
+                      body: Optional[dict] = None):
+        req = self._make_request(method, path, query, body)
+        rsp = await self._http_client.send(req)
         return self._parse_response(rsp)
 
     # Specific Request Methods
