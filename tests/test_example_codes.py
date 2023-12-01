@@ -115,3 +115,27 @@ def test_example_codes_discontinuously(monkeypatch):
                                                              base_page_id)
                 _test_endpoint_example_code(example_code,
                                             is_continuous=False)
+
+
+@pytest.mark.asyncio
+async def test_example_async_codes_discontinuously(monkeypatch):
+    """ The test is interrupted by the input,
+    and the test will automatically enter the corresponding string to make the test continue.
+    """
+    _assert_example_code_environment_variables()
+
+    with keep_notion_environment_variables() as (auth_token, base_page_id):
+        with unittest.mock.patch("builtins.input") as m:
+            _delete_example_code_environment_variables()
+
+            example_codes = (
+                _import_example_code(f'official_guides_async.working_with_{endpoint}', 'run_example_code')
+                for endpoint in _endpoints
+            )
+
+            for example_code in example_codes:
+                # mock the input
+                m.side_effect = example_code_input_generator(auth_token,
+                                                             base_page_id)
+                await _test_endpoint_example_code_async(example_code,
+                                                        is_continuous=False)
