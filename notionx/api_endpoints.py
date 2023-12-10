@@ -5,10 +5,9 @@ from notionx.utils import organize_kwargs_as_a_dict_param, unquote_params
 from notionx.validation_tools import OneOf, validate_dict_parameter
 
 if typing.TYPE_CHECKING:
-    from collections.abc import Awaitable
-
     from notionx.client import Client
 
+from collections.abc import Awaitable
 DictOrAwaitableDict = typing.Union[typing.Dict, Awaitable[typing.Dict]]
 OptionalDict = typing.Optional[typing.Dict]
 
@@ -117,6 +116,7 @@ class BlockChildrenEndpoint(Endpoint):
         """ Returns a paginated array of child block objects contained in the block using the ID specified.
         In order to receive a complete representation of a block,
         you may need to recursively retrieve the block children of child blocks.
+        See also: https://developers.notion.com/reference/get-block-children
         """
         return self._client.get(
             f"blocks/{block_id}/children",

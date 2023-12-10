@@ -33,6 +33,7 @@ class PagePropertiesEndpoint(Endpoint):
             self,
             page_id: str,
             property_id: str,
+            *,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
     ) -> DictOrAwaitableDict: ...
@@ -60,6 +61,7 @@ class PagesEndpoint(Endpoint):
     @typing.overload
     def create(
             self,
+            *,
             parent: typing.Dict,
             properties: typing.Dict,
             children: typing.Optional[typing.List[typing.Dict]] = None,
@@ -78,6 +80,7 @@ class PagesEndpoint(Endpoint):
     def retrieve(
             self,
             page_id: str,
+            *,
             filter_properties: typing.Optional[typing.List[str]] = None
     ) -> DictOrAwaitableDict: ...
 
@@ -92,6 +95,7 @@ class PagesEndpoint(Endpoint):
     def update(
             self,
             page_id: str,
+            *,
             properties: OptionalDict = None,
             archived: typing.Optional[bool] = None,
             icon: OptionalDict = None,
@@ -111,6 +115,7 @@ class BlockChildrenEndpoint(Endpoint):
     def append(
             self,
             block_id: str,
+            *,
             children: typing.List[typing.Dict]
     ) -> DictOrAwaitableDict: ...
 
@@ -118,6 +123,7 @@ class BlockChildrenEndpoint(Endpoint):
     def append(
             self,
             block_id: str,
+            *,
             children: typing.List[typing.Dict],
             after: str
     ) -> DictOrAwaitableDict: ...
@@ -133,6 +139,7 @@ class BlockChildrenEndpoint(Endpoint):
     def list(
             self,
             block_id: str,
+            *,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
     ) -> DictOrAwaitableDict: ...
@@ -156,6 +163,7 @@ class BlocksEndpoint(Endpoint):
     def update(
             self,
             block_id: str,
+            *,
             embed: OptionalDict = None,
             type: OptionalDict = None,
             bookmark: OptionalDict = None,
@@ -204,6 +212,7 @@ class DatabasesEndpoint(Endpoint):
     def query(
             self,
             database_id: str,
+            *,
             filter: OptionalDict = None,
             sorts: typing.Optional[typing.List] = None,
             start_cursor: typing.Optional[str] = None,
@@ -216,9 +225,10 @@ class DatabasesEndpoint(Endpoint):
     @typing.overload
     def create(
             self,
+            *,
             parent: typing.Dict,
             properties: typing.Dict,
-            title: typing.List[typing.Dict]
+            title: typing.Optional[typing.List[typing.Dict]] = None
     ) -> DictOrAwaitableDict: ...
 
     @typing.overload
@@ -232,6 +242,7 @@ class DatabasesEndpoint(Endpoint):
     def update(
             self,
             database_id: str,
+            *,
             title: typing.Optional[typing.List[typing.Dict]] = None,
             properties: OptionalDict = None,
             description: typing.Optional[typing.List[typing.Dict]] = None
@@ -243,6 +254,7 @@ class DatabasesEndpoint(Endpoint):
     @typing.overload
     def list(
             self,
+            *,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
     ) -> DictOrAwaitableDict: ...
@@ -257,6 +269,7 @@ class UsersEndpoint(Endpoint):
     @typing.overload
     def list(
             self,
+            *,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
     ) -> DictOrAwaitableDict: ...
@@ -271,6 +284,7 @@ class CommentsEndpoint(Endpoint):
     @typing.overload
     def list(
             self,
+            *,
             block_id: str,
             start_cursor: typing.Optional[str] = None,
             page_size: typing.Optional[int] = None
@@ -280,10 +294,10 @@ class CommentsEndpoint(Endpoint):
     def create(self, body_data: OptionalDict) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, parent: typing.Dict, rich_text: typing.Dict) -> DictOrAwaitableDict: ...
+    def create(self, *, parent: typing.Dict, rich_text: typing.Dict) -> DictOrAwaitableDict: ...
 
     @typing.overload
-    def create(self, discussion_id: str, rich_text: typing.Dict) -> DictOrAwaitableDict: ...
+    def create(self, *, discussion_id: str, rich_text: typing.Dict) -> DictOrAwaitableDict: ...
 
 
 class SearchEndpoint(Endpoint):
@@ -293,6 +307,7 @@ class SearchEndpoint(Endpoint):
     @typing.overload
     def __call__(
             self,
+            *,
             query: typing.Optional[str] = None,
             sort: OptionalDict = None,
             filter: OptionalDict = None,
