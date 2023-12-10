@@ -52,7 +52,7 @@ def validate_dict_parameter(dict_param_name: str,
         - Check if the parameter dict has a key that is not contained on the key_scope.
     """
     if required_keys is None:
-        required_keys = {}  # empty dict, meaning that none keys is required.
+        required_keys = ()  # empty tuple, meaning that none keys is required.
 
     def decorator(func: typing.Callable) -> typing.Callable:
         sig = inspect.signature(func)
