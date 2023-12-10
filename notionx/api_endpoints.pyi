@@ -1,8 +1,13 @@
 """ Endpoints definitions """
+import sys
 import typing
 
 from notionx.client import Client
-from collections.abc import Awaitable
+if sys.version_info >= (3, 9):
+    # Deprecated since version 3.9: collections.abc.Awaitable now supports [].
+    from collections.abc import Awaitable
+else:
+    from typing import Awaitable
 
 DictOrAwaitableDict = typing.Union[typing.Dict, Awaitable[typing.Dict]]
 OptionalDict = typing.Optional[typing.Dict]
